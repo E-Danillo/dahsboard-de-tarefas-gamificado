@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Dashboard Gamificado</title>
 </head>
 <body>
@@ -11,27 +12,29 @@
     <button type="submit" id="adicionar">Adicionar</button>
     <ul id="lista_de_tarefas"></ul>
 
-<script> 
+<script>
+    //VARIAVEIS
         const $input = document.querySelector("#input")
         const $adicionar = document.querySelector("#adicionar")
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
 
         let listaDeTarefas = []
 
+    //FUNCÕES
         $adicionar.addEventListener("click", () => { 
             if ($input.value == "") {
                 return
             }
-            listaDeTarefas.push($input.value)
+            listaDeTarefas.push($input.value) //adiciona input a array listaDeTarefas, bastando atualizarLista() pegar as tarefas nela
             atualizarLista()
             $input.value = "" 
             }) 
 
         function atualizarLista(){
-            $listaDeTarefas.innerHTML = ""
-            for (i = 0; i < listaDeTarefas.length; i++) {
+            $listaDeTarefas.innerHTML = "" //limpa html antes
+            for (let i = 0; i < listaDeTarefas.length; i++) {
                 const $tarefa = document.createElement("li")
-                $tarefa.textContent = listaDeTarefas[i]
+                $tarefa.textContent = ("🌌" + listaDeTarefas[i]) // listaDeTarefas[i] é o valor especifico da tarefa no momento do looping
                 $listaDeTarefas.appendChild($tarefa)
             }
         }
