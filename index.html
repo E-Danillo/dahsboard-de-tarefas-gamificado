@@ -15,16 +15,26 @@
         const $input = document.querySelector("#input")
         const $adicionar = document.querySelector("#adicionar")
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
-        
+
+        let listaDeTarefas = []
+
         $adicionar.addEventListener("click", () => { 
             if ($input.value == "") {
                 return
             }
-
-            let tarefa =  document.createElement("li") 
-            $listaDeTarefas.appendChild(tarefa) 
-            tarefa.textContent = $input.value 
+            listaDeTarefas.push($input.value)
+            atualizarLista()
             $input.value = "" 
             }) 
+
+        function atualizarLista(){
+            $listaDeTarefas.innerHTML = ""
+            for (i = 0; i < listaDeTarefas.length; i++) {
+                const $tarefa = document.createElement("li")
+                $tarefa.textContent = listaDeTarefas[i]
+                $listaDeTarefas.appendChild($tarefa)
+            }
+        }
+    
 </script>
 </html>
