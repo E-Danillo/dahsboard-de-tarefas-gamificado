@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Gamificado</title>
+</head>
+<body>
+    <h1>Bem-vindo Guerreiro!</h1>
+    <input type="text" name="input" id="input">
+    <button type="submit" id="adicionar">Adicionar</button>
+    <ul id="lista_de_tarefas"></ul>
+
+<script> 
+        const $input = document.querySelector("#input")
+        const $adicionar = document.querySelector("#adicionar")
+        const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
+        
+        $adicionar.addEventListener("click", () => { 
+            if ($input.value == "") {
+                return
+            }
+
+            let tarefa =  document.createElement("li") 
+            $listaDeTarefas.appendChild(tarefa) 
+            tarefa.textContent = $input.value 
+            $input.value = "" 
+            }) 
+</script>
+</html>
