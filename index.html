@@ -19,24 +19,66 @@
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
 
         let listaDeTarefas = []
+        let idTarefa = 0
 
     //FUNCÕES
         $adicionar.addEventListener("click", () => { 
             if ($input.value == "") {
                 return
             }
-            listaDeTarefas.push($input.value) //adiciona input a array listaDeTarefas, bastando atualizarLista() pegar as tarefas nela
+            listaDeTarefas.push({ id: idTarefa++, texto: $input.value, concluida: false }) //adiciona input a array listaDeTarefas, bastando atualizarLista() pegar as tarefas nela
             atualizarLista()
             $input.value = "" 
             }) 
-
+            
         function atualizarLista(){
-            $listaDeTarefas.innerHTML = "" //limpa html antes
+            $listaDeTarefas.innerHTML = "" // limpa HTML antes
+
             for (let i = 0; i < listaDeTarefas.length; i++) {
+                const tarefa = listaDeTarefas[i]
+
                 const $tarefa = document.createElement("li")
-                $tarefa.textContent = ("🌌" + listaDeTarefas[i]) // listaDeTarefas[i] é o valor especifico da tarefa no momento do looping
+                $tarefa.dataset.id = tarefa.id
+
+                const $textoSpan = document.createElement("span")
+                $textoSpan.textContent = "🌌 " + tarefa.texto
+
+                const $editar = document.createElement("button")
+                $editar.textContent = "Editar"
+
+                $tarefa.appendChild($textoSpan)
+                $tarefa.appendChild($editar)
                 $listaDeTarefas.appendChild($tarefa)
+
+                $editar.addEventListener("click", (event) => {
+                    const li = event.target.parentElement
+                    const id = Number(li.dataset.id)
+                    const tarefaEncontrada = listaDeTarefas.find(t => t.id === id)
+
+                    // cria input e botão salvar
+                    const $inputEdicao = document.createElement("input")
+                    $inputEdicao.value = tarefaEncontrada.texto
+
+                    const $salvar = document.createElement("button")
+                    $salvar.textContent = "Salvar"
+
+                    // limpa li e adiciona input + botão salvar
+                    li.innerHTML = ""
+                    li.appendChild($inputEdicao)
+                    li.appendChild($salvar)
+
+                    $salvar.addEventListener("click", () => {
+                        if ($inputEdicao.value.trim() !== "") {
+                            tarefaEncontrada.texto = $inputEdicao.value
+                            atualizarLista()
+                        }
+                    })
+                })
             }
+        }
+
+        function editarTarefa() {
+
         }
     
 </script>
