@@ -30,7 +30,7 @@
             atualizarLista()
             $input.value = "" 
             }) 
-            
+
         function atualizarLista(){
             $listaDeTarefas.innerHTML = "" // limpa HTML antes
 
@@ -46,8 +46,12 @@
                 const $editar = document.createElement("button")
                 $editar.textContent = "Editar"
 
+                const $excluir = document.createElement("button")
+                $excluir.textContent = "✖"
+
                 $tarefa.appendChild($textoSpan)
                 $tarefa.appendChild($editar)
+                $tarefa.appendChild($excluir)
                 $listaDeTarefas.appendChild($tarefa)
 
                 $editar.addEventListener("click", (event) => {
@@ -74,10 +78,20 @@
                         }
                     })
                 })
+
+                $excluir.addEventListener("click", (event) => {
+                    const li = event.target.parentElement
+                    const id = Number(li.dataset.id)
+                    const tarefaEncontrada = listaDeTarefas.find(t => t.id === id)
+
+                    let listaNova = listaDeTarefas.filter(num => num !== tarefaEncontrada)
+                    listaDeTarefas = listaNova
+                    atualizarLista()
+                })
             }
         }
 
-        function editarTarefa() {
+        function excluirTarefa() {
 
         }
     
