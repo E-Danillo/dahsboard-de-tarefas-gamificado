@@ -47,11 +47,15 @@
                 $editar.textContent = "Editar"
 
                 const $excluir = document.createElement("button")
-                $excluir.textContent = "✖"
+                $excluir.textContent = "❌"
+
+                const $concluir = document.createElement("button")
+                $concluir.textContent = "✅"
 
                 $tarefa.appendChild($textoSpan)
                 $tarefa.appendChild($editar)
                 $tarefa.appendChild($excluir)
+                $tarefa.appendChild($concluir)
                 $listaDeTarefas.appendChild($tarefa)
 
                 $editar.addEventListener("click", (event) => {
@@ -88,12 +92,24 @@
                     listaDeTarefas = listaNova
                     atualizarLista()
                 })
+
+                $concluir.addEventListener("click", (event) => {
+                    const li = event.target.parentElement
+                    const id = Number(li.dataset.id)
+                    const tarefaEncontrada = listaDeTarefas.find(t => t.id === id)
+
+                    tarefaEncontrada.concluida = !tarefaEncontrada.concluida  
+                    atualizarLista();
+                })
+
+                if (tarefa.concluida) {
+                    $textoSpan.style.textDecoration = "line-through";
+                    $textoSpan.style.opacity = "0.6"; 
+                } else {
+                    $textoSpan.style.textDecoration = "none";
+                    $textoSpan.style.opacity = "1";
+                }
             }
         }
-
-        function excluirTarefa() {
-
-        }
-    
 </script>
 </html>
