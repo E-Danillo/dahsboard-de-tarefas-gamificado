@@ -1,13 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap');
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-ul {
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 16px;
+    color: #f0eaff;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 12px #a78bfa, 0 0 30px #7c3aed55;
+    margin-bottom: 32px;
+}
+
+#input {
+    background: #1e1b3a;
+    border: 2px solid #7c3aed;
+    border-radius: 8px;
+    color: #f0eaff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    padding: 10px 14px;
+    outline: none;
+    width: 280px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#input:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px #7c3aed33;
+}
+
+#adicionar {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    background: #7c3aed;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#adicionar:hover  { background: #6d28d9; }
+#adicionar:active { transform: scale(0.96); }
+
+#lista_de_tarefas {
     list-style: none;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-li {
-    border: 1px solid black;
+#lista_de_tarefas li {
+    background: #1e1b3a;
+    border: 1px solid #3b3270;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+}
+
+#lista_de_tarefas li span {
+    flex: 1;
+    font-size: 1rem;
+}
+
+#lista_de_tarefas li button {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+#lista_de_tarefas li button:hover { opacity: 0.8; }
+
+/* Editar */
+#lista_de_tarefas li button:nth-of-type(1) {
+    background: #2d2b55;
+    color: #a78bfa;
+}
+
+/* Excluir */
+#lista_de_tarefas li button:nth-of-type(2) {
+    background: #2d1b1b;
+    color: #f87171;
+}
+
+/* Concluir */
+#lista_de_tarefas li button:nth-of-type(3) {
+    background: #1b2d2b;
+    color: #34d399;
 }
