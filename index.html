@@ -7,7 +7,8 @@
     <title>Dashboard Gamificado</title>
 </head>
 <body>
-    <h1>Bem-vindo Guerreiro!</h1>
+    <h1>Bem-vindo!</h1>
+    <p id="xp_do_usuario"></p>
     <input type="text" name="input" id="input">
     <button type="submit" id="adicionar">Adicionar</button>
     <ul id="lista_de_tarefas"></ul>
@@ -17,6 +18,7 @@
         const $input = document.querySelector("#input")
         const $adicionar = document.querySelector("#adicionar")
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
+        const $xpDoUsuario = document.querySelector("#xp_do_usuario")
 
         let listaDeTarefas = []
         let idTarefa = 0
@@ -24,8 +26,11 @@
         listaDeTarefas = JSON.parse(localStorage.getItem("tarefas") || "[]")
         idTarefa = listaDeTarefas.length
         atualizarLista()
+
+        let xpDoUsuario = JSON.parse(localStorage.getItem("xp") || "0")
+        $xpDoUsuario.textContent = "XP: " + xpDoUsuario
         
-        //ESCUTADORES
+    //ESCUTADORES
         $adicionar.addEventListener("click", () => { 
             if ($input.value == "") {
                 return
@@ -43,6 +48,10 @@
         
         function salvarLista(){
             localStorage.setItem("tarefas", JSON.stringify(listaDeTarefas))
+        }
+
+        function salvarXp(){
+            localStorage.setItem("xp", JSON.stringify(xpDoUsuario))
         }
 
         //FUNCÕES
@@ -116,6 +125,12 @@
                     const tarefaEncontrada = listaDeTarefas.find(t => t.id === id)
 
                     tarefaEncontrada.concluida = !tarefaEncontrada.concluida  
+                    if (tarefaEncontrada.concluida === true) {
+                        xpDoUsuario += 2
+                        $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
+                        salvarXp()
+                    }
+
                     atualizarLista();
                     salvarLista()
                 })
