@@ -9,6 +9,7 @@
 <body>
     <h1>Bem-vindo!</h1>
     <p id="xp_do_usuario"></p>
+    <p id="nivel_do_usuario"></p>
     <input type="text" name="input" id="input">
     <button type="submit" id="adicionar">Adicionar</button>
     <ul id="lista_de_tarefas"></ul>
@@ -19,6 +20,7 @@
         const $adicionar = document.querySelector("#adicionar")
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
         const $xpDoUsuario = document.querySelector("#xp_do_usuario")
+        const $nivelDoUsuario = document.querySelector("#nivel_do_usuario")
 
         let listaDeTarefas = []
         let idTarefa = 0
@@ -29,6 +31,8 @@
 
         let xpDoUsuario = JSON.parse(localStorage.getItem("xp") || "0")
         $xpDoUsuario.textContent = "XP: " + xpDoUsuario
+        atualizarNivel()
+
         
     //ESCUTADORES
         $adicionar.addEventListener("click", () => { 
@@ -46,6 +50,7 @@
             }
         })
         
+        //FUNCÕES
         function salvarLista(){
             localStorage.setItem("tarefas", JSON.stringify(listaDeTarefas))
         }
@@ -54,7 +59,6 @@
             localStorage.setItem("xp", JSON.stringify(xpDoUsuario))
         }
 
-        //FUNCÕES
         function atualizarLista(){
             $listaDeTarefas.innerHTML = "" // limpa HTML antes
 
@@ -126,8 +130,9 @@
 
                     tarefaEncontrada.concluida = !tarefaEncontrada.concluida  
                     if (tarefaEncontrada.concluida === true) {
-                        xpDoUsuario += 2
+                        xpDoUsuario += 20
                         $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
+                        atualizarNivel()
                         salvarXp()
                     }
 
@@ -143,6 +148,11 @@
                     $textoSpan.style.opacity = "1";
                 }
             }
+        }
+
+        function atualizarNivel() {
+            let calculoDoNivel = Math.floor(xpDoUsuario / 100) + 1
+            $nivelDoUsuario.textContent = "⭐ Nível: " + calculoDoNivel
         }
 </script>
 </html>
