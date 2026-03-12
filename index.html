@@ -10,6 +10,9 @@
     <h1>Bem-vindo!</h1>
     <p id="xp_do_usuario"></p>
     <p id="nivel_do_usuario"></p>
+    <div id="barra_nivel">
+        <div id="barra_xp"></div>
+    </div>
     <input type="text" name="input" id="input">
     <button type="submit" id="adicionar">Adicionar</button>
     <ul id="lista_de_tarefas"></ul>
@@ -21,10 +24,12 @@
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
         const $xpDoUsuario = document.querySelector("#xp_do_usuario")
         const $nivelDoUsuario = document.querySelector("#nivel_do_usuario")
+        const $barraDeXp = document.querySelector("#barra_xp")
 
-        let listaDeTarefas = []
         let idTarefa = 0
-
+        idTarefa = JSON.parse(localStorage.getItem("tarefas") || "0")
+        
+        let listaDeTarefas = []
         listaDeTarefas = JSON.parse(localStorage.getItem("tarefas") || "[]")
         idTarefa = listaDeTarefas.length
         atualizarLista()
@@ -32,6 +37,8 @@
         let xpDoUsuario = JSON.parse(localStorage.getItem("xp") || "0")
         $xpDoUsuario.textContent = "XP: " + xpDoUsuario
         atualizarNivel()
+
+        atualizarBarraXp()
 
         
     //ESCUTADORES
@@ -41,6 +48,7 @@
             }
             listaDeTarefas.push({ id: idTarefa++, texto: $input.value, concluida: false }) //adiciona input a array listaDeTarefas, bastando atualizarLista() pegar as tarefas nela
             atualizarLista()
+            salvarLista()
             $input.value = "" 
             }) 
 
@@ -57,6 +65,26 @@
 
         function salvarXp(){
             localStorage.setItem("xp", JSON.stringify(xpDoUsuario))
+        }
+
+        function atualizarBarraXp() {
+            let { nivel, xpAcumulado } = calcularNivel(xpDoUsuario)
+            let xpNecessario = 200 * Math.pow(1.5, nivel - 1)
+            let xpNoNivelAtual = xpDoUsuario - xpAcumulado
+            let porcentagem = (xpNoNivelAtual / xpNecessario) * 100
+            $barraDeXp.style.width = porcentagem + "%"
+        }
+
+        function calcularNivel(xp) {
+            let nivel = 1
+            let xpAcumulado = 0
+            while (true) {
+                let xpNecessario = 200 * Math.pow(1.5, nivel - 1)
+                if (xp < xpAcumulado + xpNecessario) break
+                xpAcumulado += xpNecessario
+                nivel++
+            }
+            return { nivel, xpAcumulado }
         }
 
         function atualizarLista(){
@@ -134,6 +162,7 @@
                         $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
                         atualizarNivel()
                         salvarXp()
+                        atualizarBarraXp()
                     }
 
                     atualizarLista();
@@ -151,8 +180,8 @@
         }
 
         function atualizarNivel() {
-            let calculoDoNivel = Math.floor(xpDoUsuario / 100) + 1
-            $nivelDoUsuario.textContent = "⭐ Nível: " + calculoDoNivel
+            let { nivel } = calcularNivel(xpDoUsuario)
+            $nivelDoUsuario.textContent = "⭐ Nível: " + nivel
         }
 </script>
 </html>

@@ -66,6 +66,24 @@ p {
 #adicionar:hover  { background: #6d28d9; }
 #adicionar:active { transform: scale(0.96); }
 
+#barra_nivel {
+    width: 100%;
+    max-width: 500px;
+    height: 20px;
+    background: #1e1b3a;
+    border: 2px solid #7c3aed;
+    border-radius: 10px;
+    margin: 5px 10px 30px 10px;
+    overflow: hidden;
+}
+
+#barra_xp {
+    height: 100%;
+    background: linear-gradient(20deg, #7c3aed, #aebe1c);
+    width: 0;
+    transition: width 0.5s ease-in-out;
+}
+
 #lista_de_tarefas {
     list-style: none;
     width: 100%;
