@@ -18,7 +18,7 @@
     <ul id="lista_de_tarefas"></ul>
 
 <script>
-    //VARIAVEIS
+        //Variáveis do HTML no Javascript
         const $input = document.querySelector("#input")
         const $adicionar = document.querySelector("#adicionar")
         const $listaDeTarefas = document.querySelector("#lista_de_tarefas") 
@@ -26,6 +26,7 @@
         const $nivelDoUsuario = document.querySelector("#nivel_do_usuario")
         const $barraDeXp = document.querySelector("#barra_xp")
 
+        //Criando e Salvando o id da tarefa, lista de tarefas e o xp do usuário
         let idTarefa = 0
         idTarefa = JSON.parse(localStorage.getItem("tarefas") || "0")
         
@@ -37,21 +38,20 @@
         let xpDoUsuario = JSON.parse(localStorage.getItem("xp") || "0")
         $xpDoUsuario.textContent = "XP: " + xpDoUsuario
         atualizarNivel()
-
         atualizarBarraXp()
-
         
-    //ESCUTADORES
+        //Escutador do botão adicionar
         $adicionar.addEventListener("click", () => { 
             if ($input.value == "") {
                 return
             }
-            listaDeTarefas.push({ id: idTarefa++, texto: $input.value, concluida: false }) //adiciona input a array listaDeTarefas, bastando atualizarLista() pegar as tarefas nela
+            listaDeTarefas.push({ id: idTarefa++, texto: $input.value, concluida: false }) 
             atualizarLista()
             salvarLista()
             $input.value = "" 
             }) 
 
+            //Se apertar Enter, envia tarefa também
             $input.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                 $adicionar.click(); 
@@ -114,19 +114,18 @@
                 $tarefa.appendChild($concluir)
                 $listaDeTarefas.appendChild($tarefa)
 
+                // cria o botão de editar-salvar e suas lógicas
                 $editar.addEventListener("click", (event) => {
                     const li = event.target.parentElement
                     const id = Number(li.dataset.id)
                     const tarefaEncontrada = listaDeTarefas.find(t => t.id === id)
 
-                    // cria input e botão salvar
                     const $inputEdicao = document.createElement("input")
                     $inputEdicao.value = tarefaEncontrada.texto
 
                     const $salvar = document.createElement("button")
                     $salvar.textContent = "Salvar"
 
-                    // limpa li e adiciona input + botão salvar
                     li.innerHTML = ""
                     li.appendChild($inputEdicao)
                     li.appendChild($salvar)
@@ -140,6 +139,7 @@
                     })
                 })
 
+                // cria o botão de excluir e sua lógica
                 $excluir.addEventListener("click", (event) => {
                     const li = event.target.parentElement
                     const id = Number(li.dataset.id)
@@ -151,12 +151,20 @@
                     salvarLista()
                 })
 
+                // cria o botão de concluir e sua lógica
                 $concluir.addEventListener("click", (event) => {
                     const li = event.target.parentElement
                     const id = Number(li.dataset.id)
                     const tarefaEncontrada = listaDeTarefas.find(t => t.id === id)
 
-                    tarefaEncontrada.concluida = !tarefaEncontrada.concluida  
+                    // já está concluída?
+                    if (tarefaEncontrada.concluida) {
+                        return
+                    }
+
+                    // não está?
+                    tarefaEncontrada.concluida = true
+
                     if (tarefaEncontrada.concluida === true) {
                         xpDoUsuario += 20
                         $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
