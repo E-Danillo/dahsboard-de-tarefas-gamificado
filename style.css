@@ -31,6 +31,11 @@ p {
     margin-bottom: 10px;
 }
 
+#botoes-formulario {
+    display: flex;
+    gap: 20px;
+}
+
 #input {
     background: #1e1b3a;
     border: 2px solid #7c3aed;
@@ -49,7 +54,7 @@ p {
     box-shadow: 0 0 0 3px #7c3aed33;
 }
 
-#adicionar {
+#adicionar, #criar_nova_tarefa, #cancelar {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1rem;
@@ -63,8 +68,13 @@ p {
     transition: background 0.2s, transform 0.1s;
 }
 
-#adicionar:hover  { background: #6d28d9; }
-#adicionar:active { transform: scale(0.96); }
+#adicionar:hover, #criar_nova_tarefa:hover, #cancelar:hover {
+    background: #6d28d9;
+}
+
+#adicionar:active, #criar_nova_tarefa:active, #cancelar:active {
+    transform: scale(0.96);
+}
 
 #barra_nivel {
     width: 100%;
@@ -82,6 +92,34 @@ p {
     background: linear-gradient(20deg, #7c3aed, #aebe1c);
     width: 0;
     transition: width 0.5s ease-in-out;
+}
+
+.div_do_formulario {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.div_do_formulario > * {
+    margin-bottom: 20px;
+}
+
+.ativada {
+    display: flex;
+}
+
+select {
+    background: #1e1b3a;
+    border: 2px solid #7c3aed;
+    border-radius: 8px;
+    color: #f0eaff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    padding: 10px 14px;
+    outline: none;
+    width: 280px;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 #lista_de_tarefas {

@@ -13,8 +13,21 @@
     <div id="barra_nivel">
         <div id="barra_xp"></div>
     </div>
-    <input type="text" name="input" id="input">
-    <button type="submit" id="adicionar">Adicionar</button>
+    <button id="criar_nova_tarefa">Criar Nova tarefa</button>
+    <div class="div_do_formulario">
+        <p>Vamos começar. Qual é sua tarefa?</p>
+        <input type="text" name="input" id="input" placeholder="Digite sua tarefa:">
+        <p>Quão difícil é essa tarefa para você?</p>
+        <select id="prioridades">
+            <option>Alta</option>
+            <option>Média</option>
+            <option>Baixa</option>
+        </select>
+        <div id="botoes-formulario">
+            <button type="submit" id="adicionar">Adicionar</button>
+            <button type="submit" id="cancelar">Cancelar</button>
+        </div>
+    </div>
     <ul id="lista_de_tarefas"></ul>
 
 <script>
@@ -25,6 +38,10 @@
         const $xpDoUsuario = document.querySelector("#xp_do_usuario")
         const $nivelDoUsuario = document.querySelector("#nivel_do_usuario")
         const $barraDeXp = document.querySelector("#barra_xp")
+        const $criarNovaTarefa = document.querySelector("#criar_nova_tarefa")
+        const $divDoFormulario = document.querySelector(".div_do_formulario")
+        const $prioridade = document.querySelector("#prioridades")
+        const $cancelar = document.querySelector("#cancelar")     
 
         //Criando e Salvando o id da tarefa, lista de tarefas e o xp do usuário
         let idTarefa = 0
@@ -40,15 +57,20 @@
         atualizarNivel()
         atualizarBarraXp()
         
+        $criarNovaTarefa.addEventListener("click", () => {
+            $divDoFormulario.classList.add("ativada")
+        })
+
         //Escutador do botão adicionar
         $adicionar.addEventListener("click", () => { 
             if ($input.value == "") {
                 return
             }
-            listaDeTarefas.push({ id: idTarefa++, texto: $input.value, concluida: false }) 
+            listaDeTarefas.push({ id: idTarefa++, texto: $input.value, concluida: false, prioridade: $prioridade.value }) 
             atualizarLista()
             salvarLista()
-            $input.value = "" 
+            $input.value = ""
+            $divDoFormulario.classList.remove("ativada")
             }) 
 
             //Se apertar Enter, envia tarefa também
@@ -56,6 +78,11 @@
             if (event.key === "Enter") {
                 $adicionar.click(); 
             }
+        })
+
+        //Escutador do botão cancelar
+        $cancelar.addEventListener("click", () => {
+            $divDoFormulario.classList.remove("ativada")
         })
         
         //FUNCÕES
@@ -97,7 +124,14 @@
                 $tarefa.dataset.id = tarefa.id
 
                 const $textoSpan = document.createElement("span")
-                $textoSpan.textContent = "🟣 " + tarefa.texto
+
+                if (tarefa.prioridade === "Alta") {
+                    $textoSpan.textContent = "🔴 " + tarefa.texto
+                } else if (tarefa.prioridade === "Média") {
+                    $textoSpan.textContent = "🟠 " + tarefa.texto
+                } else {
+                    $textoSpan.textContent = "🟡 " + tarefa.texto
+                }
 
                 const $editar = document.createElement("button")
                 $editar.textContent = "Editar"
