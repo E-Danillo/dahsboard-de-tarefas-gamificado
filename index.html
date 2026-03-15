@@ -15,7 +15,7 @@
     </div>
     <button id="criar_nova_tarefa">Criar Nova tarefa</button>
     <div class="div_do_formulario">
-        <p>Vamos começar. Qual é sua tarefa?</p>
+        <p>Qual é sua tarefa?</p>
         <input type="text" name="input" id="input" placeholder="Digite sua tarefa:">
         <p>Quão difícil é essa tarefa para você?</p>
         <select id="prioridades">
@@ -118,6 +118,18 @@
         function atualizarLista(){
             $listaDeTarefas.innerHTML = "" // limpa HTML antes
 
+            const pesos = {
+                Alta: 3,
+                Média: 2,
+                Baixa: 1
+            }
+            listaDeTarefas.sort((a,b) => {
+                let pesoA = pesos[a.prioridade] 
+                let pesoB = pesos[b.prioridade]   
+                return pesoB - pesoA
+            })
+
+
             for (let i = 0; i < listaDeTarefas.length; i++) {
                 const tarefa = listaDeTarefas[i]
 
@@ -201,7 +213,14 @@
                     tarefaEncontrada.concluida = true
 
                     if (tarefaEncontrada.concluida === true) {
-                        xpDoUsuario += 20
+                        if (tarefaEncontrada.prioridade === "Alta") {
+                            xpDoUsuario += 100
+                        } else if ( tarefaEncontrada.prioridade === "Média" ) {
+                            xpDoUsuario += 50
+                        } else {
+                            xpDoUsuario += 25
+                        }
+                        
                         $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
                         atualizarNivel()
                         salvarXp()
