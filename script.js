@@ -11,12 +11,8 @@
         const $cancelar = document.querySelector("#cancelar")     
 
         //Criando e Salvando o id da tarefa, lista de tarefas e o xp do usuário
-        let idTarefa = 0
-        idTarefa = JSON.parse(localStorage.getItem("tarefas") || "0")
-        
-        let listaDeTarefas = []
-        listaDeTarefas = JSON.parse(localStorage.getItem("tarefas") || "[]")
-        idTarefa = listaDeTarefas.length
+        let listaDeTarefas = JSON.parse(localStorage.getItem("tarefas") || "[]")
+        let idTarefa = JSON.parse(localStorage.getItem("idTarefa") || "0")  
         atualizarLista()
 
         let xpDoUsuario = JSON.parse(localStorage.getItem("xp") || "0")
@@ -56,6 +52,7 @@
         //FUNCÕES
         function salvarLista(){
             localStorage.setItem("tarefas", JSON.stringify(listaDeTarefas))
+            localStorage.setItem("idTarefa", JSON.stringify(idTarefa))
         }
 
         function salvarXp(){
@@ -141,6 +138,25 @@
 
                     listaDeTarefas = listaDeTarefas.filter(t => t.id !== id)
 
+                    if (tarefaEncontrada.concluida === false) {
+                        if (tarefaEncontrada.prioridade === "Alta") {
+                                xpDoUsuario -= 1000
+                            } else if ( tarefaEncontrada.prioridade === "Média" ) {
+                                xpDoUsuario -= 50
+                            } else {
+                                xpDoUsuario -= 25
+                            }
+                    }
+
+                    if (xpDoUsuario < 0) {
+                        xpDoUsuario = 0
+                    }
+
+                        $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
+                        atualizarNivel()
+                        salvarXp()
+                        atualizarBarraXp()
+
                     atualizarLista()
                     salvarLista()
                 })
@@ -159,7 +175,6 @@
                     // não está?
                     tarefaEncontrada.concluida = true
 
-                    if (tarefaEncontrada.concluida === true) {
                         if (tarefaEncontrada.prioridade === "Alta") {
                             xpDoUsuario += 100
                         } else if ( tarefaEncontrada.prioridade === "Média" ) {
@@ -172,7 +187,7 @@
                         atualizarNivel()
                         salvarXp()
                         atualizarBarraXp()
-                    }
+                    
 
                     atualizarLista();
                     salvarLista()
