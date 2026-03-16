@@ -7,28 +7,35 @@
     <title>Dashboard Gamificado</title>
 </head>
 <body>
-    <h1>Bem-vindo!</h1>
-    <p id="xp_do_usuario"></p>
-    <p id="nivel_do_usuario"></p>
-    <div id="barra_nivel">
-        <div id="barra_xp"></div>
-    </div>
-    <button id="criar_nova_tarefa">Criar Nova tarefa</button>
-    <div class="div_do_formulario">
-        <p>Qual é sua tarefa?</p>
-        <input type="text" name="input" id="input" placeholder="Digite sua tarefa:">
-        <p>Qual a prioridade dessa tarefa para você?</p>
-        <select id="prioridades">
-            <option>Alta</option>
-            <option>Média</option>
-            <option>Baixa</option>
-        </select>
-        <div id="botoes-formulario">
-            <button type="button" id="adicionar">Adicionar</button>
-            <button type="button" id="cancelar">Cancelar</button>
+    <div id="div-principal">
+        <h1>Bem-vindo!</h1>
+        <p id="xp_do_usuario"></p>
+        <p id="nivel_do_usuario"></p>
+        <div id="barra_nivel">
+            <div id="barra_xp"></div>
         </div>
+        <button id="criar_nova_tarefa">Criar Nova tarefa</button>
+        <div class="div_do_formulario">
+            <p>Qual é sua tarefa?</p>
+            <input type="text" name="input" id="input" placeholder="Digite sua tarefa:">
+            <p>Qual a prioridade dessa tarefa para você?</p>
+            <select id="prioridades">
+                <option>Alta</option>
+                <option>Média</option>
+                <option>Baixa</option>
+            </select>
+            <div id="botoes-formulario">
+                <button type="button" id="adicionar">Adicionar</button>
+                <button type="button" id="cancelar">Cancelar</button>
+            </div>
+        </div>
+        <ul id="lista_de_tarefas"></ul>
     </div>
-    <ul id="lista_de_tarefas"></ul>
+    <div id="container_conquistas">
+        <h2>Conquistas:</h2>
+        <div id="conquistas"></div>
+    </div>
+    <script src="conquistas.js"></script>
 <script src="xp.js"></script>
 <script src="script.js"></script>
 </html>

@@ -6,15 +6,68 @@
     padding: 0;
 }
 
+/* Faz o body usar flex e alinhar as duas colunas */
 body {
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: flex-start; /* topo alinhado */
+    gap: 40px; /* espaço entre a principal e conquistas */
+    min-height: 100vh;
+    padding: 48px 16px;
     font-family: 'Nunito', sans-serif;
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    min-height: 100vh;
+    color: #f0eaff;
+}
+
+/* Mantém a principal no centro */
+#div-principal {
+    position: relative; /* mantém fluxo normal */
+    margin: 0 auto;     /* centraliza horizontalmente */
+    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px 16px;
-    color: #f0eaff;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid #7c3aed;
+    border-radius: 16px;
+    padding: 40px 30px;
+}
+
+/* Conquistas flutuando à direita */
+#container_conquistas {
+    position: absolute;     /* sai do fluxo do body */
+    top: 100px;             /* distância do topo (ajusta se quiser) */
+    left: 50%;              /* começa no centro da tela */
+    transform: translateX(550px); /* move para a direita quanto quiser */
+    width: 250px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid #7c3aed;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+}
+
+/* Lista de conquistas */
+#conquistas {
+    width: 100%;
+}
+
+#conquistas li {
+    background: #1e1b3a;
+    border: 1px solid #3b3270;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    transition: 0.2s all;
+}
+
+#conquistas li[style*="green"] {
+    background-color: #2d5030; /* verde fofinho para desbloqueadas */
+    font-weight: bold;
 }
 
 h1 {
@@ -176,4 +229,8 @@ select {
 #lista_de_tarefas li button:nth-of-type(3) {
     background: #1b2d2b;
     color: #34d399;
+}
+
+#container_conquistas {
+
 }
