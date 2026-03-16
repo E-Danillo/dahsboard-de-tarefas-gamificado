@@ -6,12 +6,11 @@
     padding: 0;
 }
 
-/* Faz o body usar flex e alinhar as duas colunas */
 body {
     display: flex;
-    justify-content: center; /* centraliza horizontalmente */
-    align-items: flex-start; /* topo alinhado */
-    gap: 40px; /* espaço entre a principal e conquistas */
+    justify-content: center; 
+    align-items: flex-start; 
+    gap: 40px; 
     min-height: 100vh;
     padding: 48px 16px;
     font-family: 'Nunito', sans-serif;
@@ -19,7 +18,6 @@ body {
     color: #f0eaff;
 }
 
-/* Mantém a principal no centro */
 #div-principal {
     position: relative; /* mantém fluxo normal */
     margin: 0 auto;     /* centraliza horizontalmente */
@@ -33,12 +31,11 @@ body {
     padding: 40px 30px;
 }
 
-/* Conquistas flutuando à direita */
 #container_conquistas {
     position: absolute;     /* sai do fluxo do body */
-    top: 100px;             /* distância do topo (ajusta se quiser) */
+    top: 50px;        
     left: 50%;              /* começa no centro da tela */
-    transform: translateX(550px); /* move para a direita quanto quiser */
+    transform: translateX(550px); 
     width: 250px;
     background: rgba(255,255,255,0.05);
     border: 2px solid #7c3aed;
@@ -66,7 +63,7 @@ body {
 }
 
 #conquistas li[style*="green"] {
-    background-color: #2d5030; /* verde fofinho para desbloqueadas */
+    background-color: #2d5030;
     font-weight: bold;
 }
 
@@ -104,7 +101,7 @@ p {
 
 #input:focus {
     border-color: #a78bfa;
-    box-shadow: 0 0 0 3px #7c3aed33;
+    box-shadow: 0 0 10px #7a4cff;
 }
 
 #adicionar, #criar_nova_tarefa, #cancelar {
@@ -148,10 +145,18 @@ p {
 }
 
 .div_do_formulario {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 40px 0;
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease, margin-top 0.3s ease;
+
+    transform: translateY(-20px);
+    
 }
 
 .div_do_formulario > * {
@@ -159,7 +164,10 @@ p {
 }
 
 .ativada {
-    display: flex;
+    max-height: 300px; /* ajuste conforme o tamanho do form */
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 50px;
 }
 
 select {
@@ -173,6 +181,10 @@ select {
     outline: none;
     width: 280px;
     transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:hover {
+    box-shadow: 0 0 10px #7a4cff;
 }
 
 #lista_de_tarefas {
@@ -229,8 +241,4 @@ select {
 #lista_de_tarefas li button:nth-of-type(3) {
     background: #1b2d2b;
     color: #34d399;
-}
-
-#container_conquistas {
-
 }
