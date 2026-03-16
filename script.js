@@ -157,11 +157,11 @@
                                 xpDoUsuario -= 25
                             }
                     }
-                    atualizarConquistas()
-
                     if (xpDoUsuario < 0) {
                         xpDoUsuario = 0
                     }
+                    atualizarConquistas()
+
 
                         $xpDoUsuario.textContent = "XP: " + xpDoUsuario 
                         atualizarNivel()
